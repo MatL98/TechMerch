@@ -1,53 +1,56 @@
-const express = require("express")
-const {Router} = express
-const router = new Router()
+const express = require("express");
+const Contenedor = require("../contenedor");
+const { Router } = express;
+const router = new Router();
+const moment = require("moment")
+const productos = [];
 
-const productos = []
 
-router.get("/productos", async (req, res) => {
-  let datos = new Contenedor("./productos.txt");
-  let products = await datos.getAll()
-  res.send(products)
-  productos.push(products)
 
-}); 
-router.get("/productos/:id", async (req, res) => {
+router.get("/productos", (req, res) => {
+  res.send(productos);
+});
+router.get("/productos/:id", (req, res) => {
   let id = req.params.id;
-  let datos = new Contenedor("./productos.txt");
-  let productoById = await datos.getById(id);
-  res.send(`El producto con ${id} se encontro ${{res: productoById}}`);
+	let prodById = productos.filter(prod => prod.id === id ? (console.log("No existe el producto")) : (console.log("existe el producto")))
+	res.send(`El producto con ${id} se encontro ${{ prodById }}`);
 });
 
-router.post("/", (req, res) => {
-  let datos = new Contenedor("./productos.txt");
-  console.log(req.body)
-    let {name, price, thumbnail} = req.body
+router.post("/productos", (req, res) => {
+  console.log(req.body);
+	let datos = new Contenedor("../productos.txt")
+  let {id, name, description, code, photo, price, stock} = req.body;
+	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
+	const obj = {
+		id,
+		timestamp: date,
+    name,
+    description,
+    code, 
+    photo, 
+    price,
+    stock
+	};
+	datos.save(obj)
+  productos.push(obj);
+  res.status(201).send(`Producto agregado correctamente`);
 
-    let obj = { 
-        name,
-        price,
-        thumbnail
-    }
-
-    datos.save(obj)
-    productos.push(obj)
-  
-  res.status(201).send("producto creado");
 });
 router.put("/productos/:id", (req, res) => {
   let id = req.params.id;
-  let arrNew =  productos.filter( (x) => x.id === id)
-    res.json({
-        data : arrNew[0]
-    })
+  let arrNew = productos.filter((x) => x.id === id);
+  res.json({
+		data: arrNew[0],
+  });
   res.status(201).send("producto modificado");
 });
 router.delete("/productos/:id", (req, res) => {
-  let id = req.params.id;
-  let datos = new Contenedor("./productos.txt");
-  
-  datos.deleteById(id)
-  res.send(`producto con el id: ${id} eliminado`)
+	let id = req.params.id;
+	let arrNew = productos.filter((x) => x.id !== id);
+  res.json({
+		data: arrNew
+	})
+  res.send(`producto con el id: ${id} eliminado`);
 });
 
-module.exports = router
+module.exports = router;

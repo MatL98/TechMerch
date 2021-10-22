@@ -23,20 +23,15 @@ class Contenedor {
   };
 
   save = async (product) => {
-    let newId = 1;
     let newProduct = {};
 
-    let data = await this.read();
-    let datos = JSON.parse(data);
-
-    if (!data) {
-      product.id = newId;
-      newProduct = [product];
-    } else {
-      product.id = datos[datos.length - 1].id + 1;
-      newProduct = product;
-    }
-    datos.push(newProduct);
+		try{
+			let data = await this.read();
+			let datos = JSON.parse(data);
+			datos.push(product);
+		}catch(error){
+			throw Error("Error al guardar")
+		}
 
     await this.write(datos);
   };
@@ -93,6 +88,7 @@ class Contenedor {
   };
 }
 
-
+let ex = new Contenedor("./productos.txt")
+console.log( ex.write("hola"));
 
 module.exports = Contenedor;
