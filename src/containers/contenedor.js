@@ -6,34 +6,32 @@ class Contenedor {
   }
 
   read = async () => {
-    try {
-      let data = await fs.promises.readFile(this.file, "utf-8");
+		try {
+			let data = await fs.promises.readFile(this.file, "utf-8");
       return data;
     } catch (error) {
       throw Error("Error al leer el archivo");
     }
   };
 
-  write = async (datos) => {
-    try {
-      await fs.promises.writeFile(this.file, JSON.stringify(datos, null, 2));
-    } catch (error) {
-      throw Error("Error al escribir en el archivo");
-    }
+  write = (datos) => {
+		fs.promises.writeFile(this.file, datos,"utf-8")
+		
   };
 
   save = async (product) => {
-    let newProduct = {};
+    let newId = 1;
 
-		try{
-			let data = await this.read();
-			let datos = JSON.parse(data);
-			datos.push(product);
-		}catch(error){
-			throw Error("Error al guardar")
-		}
+    let data = await this.read();
+    let datos = JSON.parse(data);
+		datos.push(product);
 
-    await this.write(datos);
+    if (!data) {
+			this.write(datos);
+    } else {
+      await fs.promises.appendFile(this.file, datos, "utf-8")
+    }
+		
   };
 
   getById = async (id) => {
@@ -88,7 +86,5 @@ class Contenedor {
   };
 }
 
-let ex = new Contenedor("./productos.txt")
-console.log( ex.write("hola"));
 
 module.exports = Contenedor;

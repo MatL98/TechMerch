@@ -1,5 +1,5 @@
 const express = require("express");
-const Contenedor = require("../contenedor");
+const Contenedor = require("../containers/contenedor");
 const { Router } = express;
 const router = new Router();
 const moment = require("moment")
@@ -9,7 +9,7 @@ const productos = [];
 
 router.get("/productos", (req, res) => {
   res.send(productos);
-});
+}); 
 router.get("/productos/:id", (req, res) => {
   let id = req.params.id;
 	let prodById = productos.filter(prod => prod.id === id ? (console.log("No existe el producto")) : (console.log("existe el producto")))
@@ -18,7 +18,7 @@ router.get("/productos/:id", (req, res) => {
 
 router.post("/productos", (req, res) => {
   console.log(req.body);
-	let datos = new Contenedor("../productos.txt")
+	let datos = new Contenedor("./productos.txt")
   let {id, name, description, code, photo, price, stock} = req.body;
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
 	const obj = {
