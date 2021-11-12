@@ -1,24 +1,23 @@
 const express = require("express");
-const Contenedor = require("../containers/contenedor");
 const { Router } = express;
 const router = new Router();
 const moment = require("moment")
-const productos = [];
+import {
+    productDao as productsApi
+} from '../daos/index'
 
 
-
-router.get("/productos", (req, res) => {
-  res.send(productos);
+router.get("/productos", async (req, res) => {
+  const getProd = await productsApi.getAll()
+  res.send(getProd);
 }); 
-router.get("/productos/:id", (req, res) => {
+router.get("/productos/:id", async (req, res) => {
   let id = req.params.id;
-	let prodById = productos.filter(prod => prod.id === id ? (console.log("No existe el producto")) : (console.log("existe el producto")))
+	const getId = await productsApi.getById(id)
 	res.send(`El producto con ${id} se encontro ${{ prodById }}`);
 });
 
-router.post("/productos", (req, res) => {
-  console.log(req.body);
-	let datos = new Contenedor("./productos.txt")
+router.post("/productos", async (req, res) => {
   let {id, name, description, code, photo, price, stock} = req.body;
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
 	const obj = {
@@ -31,26 +30,20 @@ router.post("/productos", (req, res) => {
     price,
     stock
 	};
-	datos.save(obj)
-  productos.push(obj);
-  res.status(201).send(`Producto agregado correctamente`);
+	const save = await productsApi.save(obj)
+  
+  res.status(201).send(save);
 
 });
-router.put("/productos/:id", (req, res) => {
+router.put("/productos/:id", async (req, res) => {
   let id = req.params.id;
-  let arrNew = productos.filter((x) => x.id === id);
-  res.json({
-		data: arrNew[0],
-  });
-  res.status(201).send("producto modificado");
+  const updateById = await productsApi.getById(id)
+  res.status(201).send(updateById);
 });
-router.delete("/productos/:id", (req, res) => {
+router.delete("/productos/:id", async (req, res) => {
 	let id = req.params.id;
-	let arrNew = productos.filter((x) => x.id !== id);
-  res.json({
-		data: arrNew
-	})
-  res.send(`producto con el id: ${id} eliminado`);
+	const deleted = await productsApi.deleteById(id)
+  res.send(deleted);
 });
 
 module.exports = router;

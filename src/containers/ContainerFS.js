@@ -1,51 +1,63 @@
 const fs = require("fs");
+import config from '../config.js'
+
+
 
 class Contenedor {
-  constructor(file) {
-    this.file = file;
+  constructor(route) {
+    this.route = `${config.fs.path}/${route}`;
   }
 
-  read = async () => {
+  async read() {
 		try {
-			let data = await fs.promises.readFile(this.file, "utf-8");
+			let data = await fs.promises.readFile(this.route, "utf-8");
       return data;
     } catch (error) {
       throw Error("Error al leer el archivo");
     }
   };
 
-  write = (datos) => {
-		fs.promises.writeFile(this.file, datos,"utf-8")
-		
+  async write (datos){
+    try {
+      fs.promises.writeFile(this.route, datos,"utf-8")
+    } catch (error) {
+      throw Error("Error al escribir")
+    }
   };
 
-  save = async (product) => {
+  async save(product){
     let newId = 1;
 
-    let data = await this.read();
-    let datos = JSON.parse(data);
-		datos.push(product);
+    let objs = this.getAll()
 
-    if (!data) {
-			this.write(datos);
-    } else {
-      await fs.promises.appendFile(this.file, datos, "utf-8")
+    if(objs.length == 0){
+      newId = 1
+    }else{
+      newId = objs[objs.length - 1].id + 1;
+    }
+    const newObj = {...product, id: newId}
+		datos.push(newObj);
+
+    try {
+			await this.write(objs);
+    } catch (error){
+      throw Error("Error al guardar" + error)
     }
 		
   };
 
-  getById = async (id) => {
+  async getById (id){
     const obj = await this.read();
     const objById = JSON.parse(obj);
     try {
       let productById = objById.filter((prod) => prod.id == id);
       return(productById);
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw Error("Error al encontrar Id");
     }
   };
 
-  getAll = async () => {
+  async getAll (){
     try {
       const data = await this.read();
       if (data.length) {
@@ -59,7 +71,7 @@ class Contenedor {
     }
   };
 
-  deleteById = async (id) => {
+  async deleteById(id){
     let data = await this.read();
     let datos = JSON.parse(data);
 
@@ -76,9 +88,9 @@ class Contenedor {
     }
   };
 
-  deleteAll = async () => {
+  async deleteAll() {
     try {
-      await fs.promises.writeFile(this.file, JSON.stringify({}));
+      await fs.promises.writeFile(this.route, JSON.stringify({}));
       console.log("se borraron todos los productos");
     } catch (err) {
       throw err;
