@@ -4,6 +4,7 @@ import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Home from './components/Home/Home';
 import { useEffect, useState } from 'react';
+import Cart from './components/Cart/Cart';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signUp" element={<SignUp />} />
         {loggedIn ? <Route exact path="/home" element={<Home />} /> : <Route path="/" element={<Navigate to={"/login"}/>}/>}
-        {/* <Route exact path="/form" element={<Form />} /> */}
+        <Route exact path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );

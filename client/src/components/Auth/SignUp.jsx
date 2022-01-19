@@ -80,8 +80,8 @@ const SignUp = () => {
           placeholder="apellido"
           id="surname"
           maxLength="10"
-          value={datos.username}
-          onChange={(e) => setDatos({ ...datos, username: e.target.value })}
+          value={datos.surname}
+          onChange={(e) => setDatos({ ...datos, surname: e.target.value })}
         />
         <input
           type="text"
@@ -89,8 +89,8 @@ const SignUp = () => {
           placeholder="direccion"
           id="direction"
           maxLength="10"
-          value={datos.username}
-          onChange={(e) => setDatos({ ...datos, username: e.target.value })}
+          value={datos.direction}
+          onChange={(e) => setDatos({ ...datos, direction: e.target.value })}
         />
         <input
           type="number"
@@ -98,8 +98,8 @@ const SignUp = () => {
           placeholder="edad"
           id="age"
           maxLength="10"
-          value={datos.username}
-          onChange={(e) => setDatos({ ...datos, username: e.target.value })}
+          value={datos.age}
+          onChange={(e) => setDatos({ ...datos, age: e.target.value })}
         />
         <input
           type="number"
@@ -107,17 +107,16 @@ const SignUp = () => {
           placeholder="Telefono"
           id="phone"
           maxLength="10"
-          value={datos.username}
-          onChange={(e) => setDatos({ ...datos, username: e.target.value })}
+          value={datos.phone}
+          onChange={(e) => setDatos({ ...datos, phone: e.target.value })}
         />
         <input
           type="text"
           name="photo"
           placeholder="Foto"
           id="photo"
-          maxLength="10"
-          value={datos.username}
-          onChange={(e) => setDatos({ ...datos, username: e.target.value })}
+          value={datos.photo}
+          onChange={(e) => setDatos({ ...datos, photo: e.target.value })}
         />
         <input type="button" value="Enviar" onClick={handleFormSubmit} />
         <input
