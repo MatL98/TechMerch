@@ -2,27 +2,29 @@ const express = require("express")
 const {Router} = express
 const router = new Router()
 const moment = require("moment")
-const cart = require("../daos/cartDAOS/CartDaoMongo")
+const Container = require("../daos/cartDAOS/CartDaoMongo")
+const cart = new Container()
 
 
 router.post("/carrito", async (req, res)=>{
-	let {name, description, code, photo, price, stock} = req.body
+	let {id, name, description, code, photo, price, stock} = req.body
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
-	const productInCart ={
-		id,
-		timestamp: date,
-		producto:{
-			name,
-			description,
-			code,
-			photo,
-			price,
-			stock
-		}
-
+	
+	const product = {
+		products:[{id,
+			timestamp: date,
+			producto:{
+				name,
+				description,
+				code,
+				photo,
+				price,
+				stock}
+		}]
 	}
-	const cart = await cart.save(productInCart)
-	res.json(cart)
+
+	const itemInCart = await cart.save(product)
+	res.json(itemInCart)
 })
 router.delete("/carrito/:id", async (req, res)=>{
 	let id = req.params.id
@@ -30,7 +32,7 @@ router.delete("/carrito/:id", async (req, res)=>{
 	res.json(getId) 
 })
 
-router.get("/carritos", async (req, res)=>{
+router.get("/carrito", async (req, res)=>{
 	const get = await cart.getAll()
 	res.json(get)
 })
