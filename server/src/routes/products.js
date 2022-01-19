@@ -2,26 +2,23 @@ const express = require("express");
 const { Router } = express;
 const router = new Router();
 const moment = require("moment")
-import {
-    productDao as productsApi
-} from '../daos/index'
-
+const Container = require("../daos/productsDAOS/ProductsDaoMongo")
+const products = new Container()
 
 router.get("/productos", async (req, res) => {
-  const getProd = await productsApi.getAll()
-  res.send(getProd);
+  const getProd = await products.getAll()
+  res.json(getProd);
 }); 
 router.get("/productos/:id", async (req, res) => {
   let id = req.params.id;
-	const getId = await productsApi.getById(id)
+	const getId = await products.getById(id)
 	res.send(`El producto con ${id} se encontro ${{ prodById }}`);
 });
 
 router.post("/productos", async (req, res) => {
-  let {id, name, description, code, photo, price, stock} = req.body;
+  let { name, description, code, photo, price, stock} = req.body;
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
 	const obj = {
-		id,
 		timestamp: date,
     name,
     description,
@@ -30,19 +27,19 @@ router.post("/productos", async (req, res) => {
     price,
     stock
 	};
-	const save = await productsApi.save(obj)
+	const save = await products.save(obj)
   
   res.status(201).send(save);
 
 });
 router.put("/productos/:id", async (req, res) => {
   let id = req.params.id;
-  const updateById = await productsApi.getById(id)
+  const updateById = await products.getById(id)
   res.status(201).send(updateById);
 });
 router.delete("/productos/:id", async (req, res) => {
 	let id = req.params.id;
-	const deleted = await productsApi.deleteById(id)
+	const deleted = await products.deleteById(id)
   res.send(deleted);
 });
 

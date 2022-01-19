@@ -2,9 +2,7 @@ const express = require("express")
 const {Router} = express
 const router = new Router()
 const moment = require("moment")
-import {
-    cartDao as cartApi
-} from '../daos/index'
+const cart = require("../daos/cartDAOS/CartDaoMongo")
 
 
 router.post("/carrito", async (req, res)=>{
@@ -23,17 +21,17 @@ router.post("/carrito", async (req, res)=>{
 		}
 
 	}
-	const cart = await cartApi.save(productInCart)
+	const cart = await cart.save(productInCart)
 	res.json(cart)
 })
 router.delete("/carrito/:id", async (req, res)=>{
 	let id = req.params.id
-	const getId = await cartApi.getById(id)
+	const getId = await cart.getById(id)
 	res.json(getId) 
 })
 
 router.get("/carritos", async (req, res)=>{
-	const get = await cartApi.getAll()
+	const get = await cart.getAll()
 	res.json(get)
 })
 router.put("/carritos/:id/productos", async(req, res)=>{
@@ -53,7 +51,7 @@ router.put("/carritos/:id/productos", async(req, res)=>{
 		}
 
 	}
-	const updated = await cartApi.update(idCart)
+	const updated = await cart.update(idCart)
 	res.json(updated)
 })
 module.exports = router

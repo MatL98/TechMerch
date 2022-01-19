@@ -1,14 +1,14 @@
-import ContainerMongo from '../../containers/ContainerMongo'
+const  ContainerMongo = require('../../containers/ContainerMongo')
 
 class CarritosDaoMongo extends ContainerMongo{
     constructor(){
         super('carritos', {
-            productos: {type: [], required: true}
+            products: {type: [], required: true}
         })
     }
 
-    async save(cart = {productos: []}){
+    async save(cart = {products: []}){
         return super.save(cart)
     }
 }
-export default ContainerMongo
+module.exports = CarritosDaoMongo
