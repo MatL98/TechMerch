@@ -1,0 +1,11 @@
+.containerProduct{
+    display: flex;
+    flex-direction: row;
+}
+
+.containerProductInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}

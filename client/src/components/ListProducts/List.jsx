@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./List.css"
 
 const List = ({ data }) => {
   const prod = data;
+  console.log(data);
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = () => {
@@ -17,14 +19,16 @@ const List = ({ data }) => {
   };
 
   return (
-      <div>
-				<h3>{prod.name}</h3>
-				<p>{prod.description}</p>
-				<p>{prod.code}</p>
+      <div className="containerProduct">
 				<img className="imgProducts" src={prod.photo} alt="productImg" />
-				<p>{prod.price}</p>
-				<p>{prod.stock}</p>
-        <div><button onClick={addToCart}>Comprar</button></div>
+        <div className="containerProductInfo"> 
+          <h3>{prod.name}</h3>
+          <p>{prod.description}</p>
+          <p>Codigo de producto: {prod.code}</p>
+          <p>Precio: ${prod.price}</p>
+          <p>Stock: {prod.stock}</p>
+          <div><button onClick={addToCart}>Comprar</button></div>
+        </div>
 			</div>
 	)
 };

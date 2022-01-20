@@ -1,4 +1,37 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.navBarHome{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+.navBar > ul{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.navBar > ul  > li{
+	margin:  0 0.2rem;
+	text-decoration: none;
+	list-style: none;
+}
+
+
+
+.containerListProducts{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 1rem 1.5rem;
+}
+
+
 .imgProducts{
-    width: 8rem;
-    height: 8rem;
+	width: 8rem;
+	height: 8rem;
 }

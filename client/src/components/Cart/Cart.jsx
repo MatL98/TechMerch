@@ -11,7 +11,9 @@ const getItemsToCart = () => {
 	axios
 		.get(`http://localhost:3001/api/carrito`)
 		.then(function (response) {
-			setItemsInCar(response);
+      let data = response.data[0].products
+			setItemsInCar(data);
+      console.log(itemsInCart);
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -33,7 +35,7 @@ useEffect(() => {
   ) : (
     <div className="cartStyle">
       {/* {itemsInCart.map((item) => (
-        <List items={item}/>
+        <List data={item}/>
       ))} */}
     </div>
   );

@@ -28,12 +28,12 @@ const Home = () => {
 
   return (
     <div>
-      <div>
+      <div className="navBarHome">
         <h1>HOME</h1>
         <NavBar/>
         <button onClick={logOut}>Log-out</button>
       </div>
-      <div>
+      <div className="containerListProducts">
         {products ?
           products.map((prd, idx) =>{
           return <List data={prd} key={idx}/>

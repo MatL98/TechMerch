@@ -36,7 +36,7 @@ router.get("/carrito", async (req, res)=>{
 	const get = await cart.getAll()
 	res.json(get)
 })
-router.put("/carritos/:id/productos", async(req, res)=>{
+router.put("/carritos/productos/:id", async(req, res)=>{
 	let idCart = req.params.id
 	let {name, description, code, photo, price, stock} = req.body
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
