@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("./routes/products");
+const routerProducts = require("./routes/products");
 const routerCart = require("./routes/cart");
 const routerLogin = require("./routes/login");
 const cookieParser = require("cookie-parser");
@@ -28,8 +28,8 @@ app.use(passport.session());
 app.use(cors());
 
 app.use("/auth", routerLogin);
-app.use("/api", router);
-app.use("/api", routerCart);
+app.use("/api/products", routerProducts);
+app.use("/api/cart", routerCart);
 
 
 //DB Connection

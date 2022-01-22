@@ -1,6 +1,7 @@
 .containerProduct{
     display: flex;
     flex-direction: row;
+    margin-bottom: 0.5rem;
 }
 
 .containerProductInfo{
@@ -8,4 +9,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+}
+
+.imgProducts{
+	width: 10rem;
+	height: 10rem;
 }

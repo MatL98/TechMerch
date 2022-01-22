@@ -5,17 +5,17 @@ const moment = require("moment")
 const Container = require("../daos/productsDAOS/ProductsDaoMongo")
 const products = new Container()
 
-router.get("/productos", async (req, res) => {
+router.get("/", async (req, res) => {
   const getProd = await products.getAll()
   res.json(getProd);
 }); 
-router.get("/productos/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   let id = req.params.id;
 	const getId = await products.getById(id)
 	res.send(`El producto con ${id} se encontro ${{ prodById }}`);
 });
 
-router.post("/productos", async (req, res) => {
+router.post("/", async (req, res) => {
   let { name, description, code, photo, price, stock} = req.body;
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
 	const obj = {
@@ -32,12 +32,12 @@ router.post("/productos", async (req, res) => {
   res.status(201).send(save);
 
 });
-router.put("/productos/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   let id = req.params.id;
   const updateById = await products.getById(id)
   res.status(201).send(updateById);
 });
-router.delete("/productos/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
 	let id = req.params.id;
 	const deleted = await products.deleteById(id)
   res.send(deleted);

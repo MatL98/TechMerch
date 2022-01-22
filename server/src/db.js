@@ -1,11 +1,18 @@
-const mongoose = require("mongoose")
-const  URI = "mongodb+srv://mat:fury8gb@cluster0.fpnkj.mongodb.net/ecommerce?retryWrites=true&w=majority"
+const mongoose = require("mongoose");
+const URI =
+  "mongodb+srv://mat:fury8gb@cluster0.fpnkj.mongodb.net/ecommerce?retryWrites=true&w=majority";
 
-const connectDb = async ()=>{
-    await mongoose.connect(URI,{
-        useNewUrlParser: true
-    })
-    console.log("db connected");
-}
+const connectDb = () => {
+  mongoose.connect(URI, {
+    useNewUrlParser: true,
+  });
+  mongoose.connection.on("open", () => {
+    console.log("Base de datos conectada con exito!!");
+  });
 
-module.exports = connectDb
+  mongoose.connection.on("error", () => {
+    console.log("Error al conectarse a la base de datos!!");
+  });
+};
+
+module.exports = connectDb;

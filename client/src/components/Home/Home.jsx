@@ -9,7 +9,7 @@ const Home = () => {
   let navigate = useNavigate();
 
   const getApi = () => {
-    axios.get("http://localhost:3001/api/productos").then(function (response) {
+    axios.get("http://localhost:3001/api/products").then(function (response) {
       setProducts(response.data);
     });
   };

@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import "./List.css"
+import { CartContext } from "../../Context/CartContext";
 
 const List = ({ data }) => {
+  const {addToCart} = useContext(CartContext)
   const prod = data;
-  console.log(data);
-  const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = () => {
-    axios
-      .post(`http://localhost:3001/api/carrito`, prod)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const sendToCart = () => {
+    const quantity = 1
+    const newProduct = {...prod, quantity}
+    addToCart(newProduct)
   };
 
   return (
@@ -27,7 +22,7 @@ const List = ({ data }) => {
           <p>Codigo de producto: {prod.code}</p>
           <p>Precio: ${prod.price}</p>
           <p>Stock: {prod.stock}</p>
-          <div><button onClick={addToCart}>Comprar</button></div>
+          <div><button onClick={sendToCart}>Comprar</button></div>
         </div>
 			</div>
 	)

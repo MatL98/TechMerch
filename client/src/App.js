@@ -5,6 +5,7 @@ import Login from './components/Auth/Login';
 import Home from './components/Home/Home';
 import { useEffect, useState } from 'react';
 import Cart from './components/Cart/Cart';
+import { CartProvider } from "./Context/CartContext";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   }, []);
 
   return (
+    <CartProvider>
     <Router>
       <Routes>
         <Route exact path="/login" element={<Login />} />
@@ -26,6 +28,7 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
       </Routes>
     </Router>
+    </CartProvider>
   );
 }
 
