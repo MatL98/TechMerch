@@ -55,23 +55,21 @@ passport.use(
       };
       newUser.password = await encrypt.encryptPassword(password);
       const result = await user.save(newUser);
-      console.log(result);
-      newUser.id = result;
       return done(null, newUser);
     }
   )
 );
 
 passport.serializeUser((user, done) => {
-  const id = user._id
-  console.log(id);
+  const id = user._id.toString()
   done(null, id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await bank.getUser(id);
-  if (user) {
-    done(null, user);
+  const usr = await user.getById(id);
+  console.log(usr);
+  if (usr) {
+    done(null, usr);
   }else{
     console.log(error);
   }

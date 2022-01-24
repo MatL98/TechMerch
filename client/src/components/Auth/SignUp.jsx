@@ -26,7 +26,7 @@ const SignUp = () => {
           "http://localhost:3001/auth/signUp",
           datos
         );
-        if (data === "ok") {
+        if (data === datos.mail) {
           navigate("/login");
         }
       } else {

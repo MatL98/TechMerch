@@ -11,16 +11,19 @@ const user = new Container1;
 
 
 router.post("/", async (req, res)=>{
-	console.log(req.session.passport);
-	const infoUser = await user.getById()
-	console.log(infoUser);
-	let cartFront = req.body
+	const mailBuyer = req.body.mail
+	const infoUser = await user.getAll()
+	console.log(mailBuyer);
+	const buyer = infoUser.filter((usr)=>{
+		console.log(usr.mail  === `"${mailBuyer}"`);
+	})
+	let cartFront = req.body.cart
 	let date = moment().format('MMMM Do YYYY, h:mm:ss a');
 
 	const products  = [{
 		products: cartFront,
 		timestamp: date,
-		//infoUser
+		//buyer
 	}]
 	//const itemInCart = await cart.save(products)
 	async function sendMail (userInfo, infoProducts) {

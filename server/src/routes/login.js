@@ -12,7 +12,6 @@ router.post("/login", (req, res, next) => {
       res.json("invalid");
     } else {
       req.logIn(user, (err) => {
-        console.log(user.mail);
         res.json(user.mail);
       });
     }
@@ -22,7 +21,6 @@ router.post("/signUp", (req, res, next) => {
   const usr = req.body;
   const mail = "c6plaeaopf3eec3n@ethereal.email"
   passport.authenticate("local-signUp", (err, user) => {
-    console.log(user);
     if (err) throw err;
     if (!user) {
       res.json("no");

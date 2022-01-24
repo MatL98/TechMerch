@@ -11,11 +11,13 @@ const Cart = () => {
   console.log(cart);
 
 const sendToApi = () => {
+  let mailUser = window.localStorage.getItem("loggedUserWithMail");
+  const data = {cart, mail: mailUser}
 	axios
-		.post(`http://localhost:3001/api/cart`, cart)
+		.post(`http://localhost:3001/api/cart`, data)
 		.then(function (response) {
-      let data = response
-      console.log(data);
+      let datos = response
+      console.log(datos);
 		})
 		.catch(function (error) {
 			console.log(error);
