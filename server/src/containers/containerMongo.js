@@ -1,10 +1,21 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const { asPOJO, renameField, removeField } = require("../utils/object");
+
+const Cart = require("../models/CartSchema");
+const Products = require("../Models/ProductSchema");
+const User = require("../Models/UserSchema");
+
 
 
 class ContainerMongo {
-  constructor(schema, schemaModel) {
-    this.coleccion = mongoose.model(schema, schemaModel);
+  constructor(schema) {
+    if (schema === 'productos') {
+      this.coleccion = Products
+    }else if (schema === 'cart') {
+      this.coleccion = Cart
+    }else{
+      this.coleccion = User
+    }
   }
 
   async getById(id) {
@@ -13,8 +24,7 @@ class ContainerMongo {
       if (!docs) {
         throw new Error("Error al listar por id: no encontrado");
       } else {
-        const result = renameField(asPOJO(docs[0]), "_id", "id");
-        return result;
+        return docs[0];
       }
     } catch (error) {
       throw new Error(`Error al listar por id: ${error}`);

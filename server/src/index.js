@@ -21,6 +21,7 @@ app.use(
     secret: "xhiperMegaSecreTx",
     resave: true,
     saveUninitialized: true,
+    cookie:{maxAge: 100000}
   })
 );
 app.use(passport.initialize());

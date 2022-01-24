@@ -3,8 +3,8 @@ const { Router } = express;
 const router = new Router();
 const passport = require("passport");
 const nodemailer = require("nodemailer")
-
 	
+
 router.post("/login", (req, res, next) => {
   passport.authenticate("local-login", (err, user) => {
     if (err) throw err;
@@ -18,17 +18,17 @@ router.post("/login", (req, res, next) => {
     }
   })(req, res, next);
 });
-
 router.post("/signUp", (req, res, next) => {
   const usr = req.body;
   const mail = "c6plaeaopf3eec3n@ethereal.email"
   passport.authenticate("local-signUp", (err, user) => {
+    console.log(user);
     if (err) throw err;
     if (!user) {
       res.json("no");
     } else {
       req.logIn(user, (err) => {
-        res.json("ok");
+        res.json(user);
       });
     }
   })(req, res, next);

@@ -1,10 +1,8 @@
-const ContainerMongo = require("../../containers/ContainerMongo");
+const ContainerMongo = require("../containers/containerMongo");
 
 class CarritosDaoMongo extends ContainerMongo {
   constructor() {
-    super("cart", {
-      products: { type: Array, required: true },
-    });
+    super("cart")
   }
   /* async save(cart = {products: []}){
         return super.save(cart)
