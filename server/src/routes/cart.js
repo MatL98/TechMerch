@@ -8,7 +8,7 @@ const nodemailer = require("nodemailer");
 const Container1 = require("../daos/userDaosMongo");
 const user = new Container1();
 const twilio = require("twilio");
-require("dotenv");
+require("dotenv").config();
 
 router.post("/", async (req, res) => {
   const mailUser = req.body.mail;
