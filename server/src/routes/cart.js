@@ -7,6 +7,8 @@ const cart = new Container();
 const nodemailer = require("nodemailer");
 const Container1 = require("../daos/userDaosMongo");
 const user = new Container1();
+const twilio = require("twilio");
+require("dotenv");
 
 router.post("/", async (req, res) => {
   const mailUser = req.body.mail;
@@ -25,7 +27,32 @@ router.post("/", async (req, res) => {
     },
   ];
   const itemInCart = await cart.save(products);
-  async function sendMail(userInfo, infoProducts) {
+
+  async function sendMessageToUser(buyer, infoProducts) {
+    const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+
+    const options = {
+      body: `Nombre y mail:${buyer[0].username} ${buyer[0].mail}
+			${infoProducts.map((prod) => {
+        return `Sus pedidos son: ${prod.name} ${prod.price}`;
+      })}`,
+      from: "whatsapp:+14155238886",
+      to: process.env.MY_PHONE_NUMBER,
+    };
+    try {
+      const message = await client.messages.create(options);
+      console.log(message);
+      res.json({ data: message });
+    } catch (error) {
+      error;
+    }
+
+    client.messages.create({
+      from: "+16065591166",
+      to: process.env.MY_PHONE_NUMBER,
+      body: "Tu pedido esta recibido y procesado, gracias!",
+    });
+
     const mail = "c6plaeaopf3eec3n@ethereal.email";
     const transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
@@ -39,8 +66,10 @@ router.post("/", async (req, res) => {
       from: "techmerch",
       to: mail,
       subject: `nuevo pedido de ${buyer[0].mail}-${buyer[0].username}`,
-      html: `<h1>${buyer[0].username} ${buyer[0].surname}</h1> 
-					<p>Sus pedidos son: ${buyer[0].name} ${buyer[0].price}`,
+      html: `<h1>${buyer[0].username} ${buyer[0].surname}</h1>
+				${infoProducts.map((prod) => {
+          return `<p>Sus pedidos son: ${prod.name} ${prod.price}</p>`;
+        })}`,
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -50,7 +79,7 @@ router.post("/", async (req, res) => {
       }
     });
   }
-  await sendMail(infoUser, cartFront);
+  await sendMessageToUser(buyer, cartFront);
   res.json(itemInCart);
 });
 router.get("/", async (req, res) => {
