@@ -37,6 +37,7 @@ app.use("/api/cart", routerCart);
 db()
 
 const port = process.env.PORT || 3001;
+console.log(port);
 
 app.listen(port, () => {
   console.log(`Server on port ${port} is running`);

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { asPOJO, renameField, removeField } = require("../utils/object");
 
 const Cart = require("../models/CartSchema");
-const Products = require("../Models/ProductSchema");
+const Products = require("../models/ProductSchema");
 const User = require("../Models/UserSchema");
 
 

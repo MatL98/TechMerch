@@ -2,7 +2,7 @@ const express = require("express");
 const { Router } = express;
 const router = new Router();
 const Container = require("../daos/ProductsDaoMongo");
-const products = new Container();
+const products = new Container;
 
 router.get("/", async (req, res) => {
   const getProd = await products.getAll();
