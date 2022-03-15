@@ -2,10 +2,10 @@ const express = require("express");
 const { Router } = express;
 const router = new Router();
 const moment = require("moment");
-const Container = require("../daos/CartDaoMongo");
+const Container = require("../controllers/daos/CartDaoMongo");
 const cart = new Container();
 const nodemailer = require("nodemailer");
-const Container1 = require("../daos/userDaosMongo");
+const Container1 = require("../controllers/daos/userDaosMongo");
 const user = new Container1();
 const twilio = require("twilio");
 require("dotenv").config();
@@ -107,7 +107,7 @@ router.put("/:id", async (req, res) => {
       stock,
     },
   };
-  const updated = await cart.update(idCart);
+  const updated = await cart.update(idCart, productInCart );
   res.json(updated);
 });
 module.exports = router;

@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Container = require("../daos/UserDaosMongo")
+const Container = require("../controllers/daos/UserDaosMongo")
 const user = new Container;
 const encrypt = require("./encrypt");
 

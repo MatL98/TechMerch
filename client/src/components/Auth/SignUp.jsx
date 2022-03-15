@@ -30,7 +30,7 @@ const SignUp = () => {
           navigate("/login");
         }
       } else {
-        let msn = "es necesario eligir los tres campos";
+        let msn = "es necesario completar todos los datos";
         setFailForm(msn);
         setTimeout(hide, 2000);
       }

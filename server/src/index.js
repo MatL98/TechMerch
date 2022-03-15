@@ -15,10 +15,10 @@ require("./utils/auth")
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser("xhiperMegaSecreTx"));
+app.use(cookieParser(process.env.SECRET));
 app.use(
   session({
-    secret: "xhiperMegaSecreTx",
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true,
     cookie:{maxAge: 100000}
@@ -36,10 +36,9 @@ app.use("/api/cart", routerCart);
 //DB Connection
 db()
 
-const port = process.env.PORT || 3001;
-console.log(port);
+const PORT = process.env.PORT || 3001
 
-app.listen(port, () => {
-  console.log(`Server on port ${port} is running`);
+app.listen(PORT, () => {
+  console.log(`Server on port ${PORT} is running`);
 });
 

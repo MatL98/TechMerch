@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -22,11 +22,9 @@
     "moment": "^2.29.1",
     "mongoose": "^6.0.12",
     "nodemailer": "6.7.2",
+    "nodemon": "2.0.15",
     "passport": "0.5.2",
     "passport-local": "1.0.0",
     "twilio": "^3.73.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.14"
   }
 }

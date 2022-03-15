@@ -1,0 +1,27 @@
+.navBarHome{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+    background-color: rgb(230, 230, 13);
+    padding: 0.3rem 0;
+}
+.navBar > ul{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.navBar > ul  > li{
+	margin:  0 0.2rem;
+	text-decoration: none;
+	list-style: none;
+}
+.navBar > ul  > li > a{
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+}
+.logoTech{
+    height: 2.5rem;
+    width: 2.5rem;
+}

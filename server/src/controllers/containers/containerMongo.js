@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const { asPOJO, renameField, removeField } = require("../utils/object");
+const { asPOJO, renameField, removeField } = require("../../utils/object");
 
-const Cart = require("../models/CartSchema");
-const Products = require("../models/ProductSchema");
-const User = require("../Models/UserSchema");
+const Cart = require("../../models/CartSchema");
+const Products = require("../../models/ProductSchema");
+const User = require("../../Models/UserSchema");
 
 
 
@@ -39,28 +39,28 @@ class ContainerMongo {
     }
   }
 
-  async save(nuevoElem) {
+  async save(newObj) {
     try {
-      let doc = await this.coleccion.create(nuevoElem);
+      let doc = await this.coleccion.create(newObj);
       return doc;
     } catch (error) {
       throw new Error(`Error al guardar: ${error}`);
     }
   }
 
-  async update(nuevoElem) {
+  async update(id, nuevoElem) {
     try {
-      renameField(nuevoElem, "id", "_id");
+      //renameField(nuevoElem, "id", "_id");
       const { n, nModified } = await this.coleccion.replaceOne(
-        { _id: nuevoElem._id },
+        { _id: id },
         nuevoElem
       );
       if (n == 0 || nModified == 0) {
         throw new Error("Error al actualizar: no encontrado");
       } else {
-        renameField(nuevoElem, "_id", "id");
-        removeField(nuevoElem, "__v");
-        return asPOJO(nuevoElem);
+        //renameField(nuevoElem, "_id", "id");
+        //removeField(nuevoElem, "__v");
+        return nuevoElem
       }
     } catch (error) {
       throw new Error(`Error al actualizar: ${error}`);

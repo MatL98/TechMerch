@@ -20,9 +20,9 @@ const List = ({ data }) => {
           <h3>{prod.name}</h3>
           <p>{prod.description}</p>
           <p>Codigo de producto: {prod.code}</p>
-          <p>Precio: ${prod.price}</p>
+          <p>Precio: <span className="priceProduct">${prod.price}</span></p>
           <p>Stock: {prod.stock}</p>
-          <div><button onClick={sendToCart}>Comprar</button></div>
+          <div><button className="btnBuy" onClick={sendToCart}>Comprar</button></div>
         </div>
 			</div>
 	)

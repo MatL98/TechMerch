@@ -21,7 +21,6 @@ const Login = () => {
     try {
       if (datos.username && datos.mail && datos.password) {
         const { data } = await axios.post("http://localhost:3001/auth/login", datos);
-        console.log(data);
         if (data === datos.mail) {
           window.localStorage.setItem(
             "loggedUserWithMail",

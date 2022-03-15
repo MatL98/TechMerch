@@ -1,7 +1,7 @@
 const express = require("express");
 const { Router } = express;
 const router = new Router();
-const Container = require("../daos/ProductsDaoMongo");
+const Container = require("../controllers/daos/ProductsDaoMongo");
 const products = new Container;
 
 router.get("/", async (req, res) => {
@@ -30,8 +30,9 @@ router.post("/", async (req, res) => {
 });
 router.put("/:id", async (req, res) => {
   let id = req.params.id;
-  const updateById = await products.getById(id);
-  res.status(201).send(updateById);
+  const newUpdate = req.body
+  const updateProduct = await products.update(id, newUpdate)
+  res.status(201).send(updateProduct);
 });
 router.delete("/:id", async (req, res) => {
   let id = req.params.id;

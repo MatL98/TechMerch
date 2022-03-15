@@ -4,22 +4,6 @@
 	box-sizing: border-box;
 }
 
-.navBarHome{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-}
-.navBar > ul{
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-.navBar > ul  > li{
-	margin:  0 0.2rem;
-	text-decoration: none;
-	list-style: none;
-}
 
 
 
@@ -28,4 +12,23 @@
 	flex-direction: column;
 	justify-content: center;
 	margin: 1rem 1.5rem;
+}
+
+.btnLogOut{
+	background-color: rgb(55, 150, 209);
+    border-radius: 5px;
+    width: 5rem;
+    height: 1.3rem;
+    border: none;
+    color: aliceblue;
+    letter-spacing: 1px;
+}
+
+.btnBack{
+    border-radius: 5px;
+    width: 5rem;
+    height: 2rem;
+    border: 1px solid rgb(55, 150, 209);
+    color: rgb(55, 150, 209);
+    letter-spacing: 1px;
 }

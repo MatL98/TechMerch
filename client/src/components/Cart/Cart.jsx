@@ -3,6 +3,8 @@ import ListCart from "../ListProducts/ListCart";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../Context/CartContext";
+import NavBar from "../Navbar/NavBar"
+import "./cartStyle.css"
 
 
 const Cart = () => {
@@ -26,6 +28,7 @@ const sendToApi = () => {
 
   return itemsInCart() ? (
     <div>
+      <NavBar/>
       <div className="cartNoItem">
         <h5>No hay compras en el carrito..</h5>{" "}
         <Link to="/home">
@@ -34,7 +37,9 @@ const sendToApi = () => {
       </div>
     </div>
   ) : (
+
     <div className="cartStyle">
+      <NavBar/>
       { cart.map((item, idx) => (
         <ListCart data={item} key={idx}/>
       )) } 
