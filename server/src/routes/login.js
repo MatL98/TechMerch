@@ -12,7 +12,7 @@ router.post("/login", (req, res, next) => {
     } else {
       req.logIn(user, (err) => {
         console.log(user);
-        res.json({dataUser:user.mail, token: user.token});
+        res.json({dataUser:user.mail, token: user.token, idUser: user._id});
       });
     }
   })(req, res, next);

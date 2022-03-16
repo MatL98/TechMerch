@@ -29,6 +29,9 @@ const Login = () => {
           );
           window.localStorage.setItem("token",
           JSON.stringify(data.token))
+
+          window.localStorage.setItem("id",
+          JSON.stringify(data.idUser))
           navigate("/home");
         }
         setShowMessage(true);

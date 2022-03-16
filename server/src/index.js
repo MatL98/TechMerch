@@ -2,6 +2,7 @@ const express = require("express");
 const routerProducts = require("./routes/products");
 const routerCart = require("./routes/cart");
 const routerLogin = require("./routes/login");
+const routerUser = require("./routes/infoUser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const cors = require("cors");
@@ -31,6 +32,7 @@ app.use(cors());
 app.use("/auth", routerLogin);
 app.use("/api/products", routerProducts);
 app.use("/api/cart", routerCart);
+app.use("/api/profile", routerUser);
 
 
 //DB Connection

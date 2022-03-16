@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Home from './components/Home/Home';
-import { useEffect, useState } from 'react';
 import Cart from './components/Cart/Cart';
+import Profile from './components/Profile/Profile';
+import { useEffect, useState } from 'react';
 import { CartProvider } from "./Context/CartContext";
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/signUp" element={<SignUp />} />
         {loggedIn ? <Route exact path="/home" element={<Home />} /> : <Route path="/" element={<Navigate to={"/login"}/>}/>}
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/profile" element={<Profile />} />
       </Routes>
     </Router>
     </CartProvider>

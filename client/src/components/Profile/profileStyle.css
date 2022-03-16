@@ -1,0 +1,26 @@
+.containerProfile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardProfile{
+    height: 12rem;
+    width: 12rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    border: 1px solid rgb(55, 150, 209);
+    border-radius: 5px;
+    text-transform: capitalize;
+    padding: 0 1rem;
+}
+.cardProfile > p{
+    font-weight: 600;
+    padding: 0.3rem 0;
+}
+.cardProfile > p > span{
+    font-weight: 400;
+}
