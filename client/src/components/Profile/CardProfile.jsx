@@ -6,7 +6,7 @@ const CardProfile = (data) => {
 	console.log(dataUser);
   return (
     <div className="cardProfile">
-      <img src={dataUser} alt="" />
+      <img className="userImg" src={dataUser.photo} alt="" />
       <p>Nombre: <span>{dataUser.username}</span></p>
       <p>Apellido: <span>{dataUser.surname}</span></p>
       <p>edad: <span>{dataUser.age}</span></p>

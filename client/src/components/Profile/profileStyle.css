@@ -6,7 +6,7 @@
 }
 
 .cardProfile{
-    height: 12rem;
+    height: 14rem;
     width: 12rem;
     display: flex;
     flex-direction: column;
@@ -23,4 +23,9 @@
 }
 .cardProfile > p > span{
     font-weight: 400;
+}
+.userImg{
+    object-fit: cover;
+    height: 3rem;
+    width: 3rem;
 }
