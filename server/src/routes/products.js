@@ -3,18 +3,22 @@ const { Router } = express;
 const router = new Router();
 const Container = require("../controllers/daos/ProductsDaoMongo");
 const products = new Container;
+const {verifyToken} = require("../middleware/authJwt")
 
-router.get("/", async (req, res) => {
+
+router.get("/",verifyToken ,async (req, res) => {
   const getProd = await products.getAll();
   res.json(getProd);
 });
+
+
 router.get("/:id", async (req, res) => {
   let id = req.params.id;
   const getId = await products.getById(id);
   res.send(`El producto con ${id} se encontro ${{ getId }}`);
 });
 
-router.post("/", async (req, res) => {
+router.post("/",verifyToken ,async (req, res) => {
   let { name, description, code, photo, price, stock } = req.body;
   const obj = {
     name,
@@ -28,7 +32,7 @@ router.post("/", async (req, res) => {
 
   res.status(201).send(save);
 });
-router.put("/:id", async (req, res) => {
+router.put("/:id",verifyToken ,async (req, res) => {
   let id = req.params.id;
   const newUpdate = req.body
   const updateProduct = await products.update(id, newUpdate)

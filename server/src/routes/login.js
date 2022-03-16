@@ -11,7 +11,8 @@ router.post("/login", (req, res, next) => {
       res.json("invalid");
     } else {
       req.logIn(user, (err) => {
-        res.json(user.mail);
+        console.log(user);
+        res.json({dataUser:user.mail, token: user.token});
       });
     }
   })(req, res, next);

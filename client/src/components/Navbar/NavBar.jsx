@@ -8,6 +8,7 @@ const NavBar = () => {
     let logged = window.localStorage.getItem("loggedUserWithMail");
     if (logged) {
       window.localStorage.removeItem("loggedUserWithMail");
+      window.localStorage.removeItem("token");
       navigate("/login");
     }
   };

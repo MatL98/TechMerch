@@ -3,6 +3,10 @@ import axios from "axios";
 import NavBar from "../Navbar/NavBar";
 import List from "../ListProducts/List";
 
+import {initAxiosHeader} from "../../helper/header"
+
+initAxiosHeader()
+
 const Home = () => {
   const [products, setProducts] = useState([]);
 

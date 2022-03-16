@@ -6,6 +6,10 @@ import { CartContext } from "../../Context/CartContext";
 import NavBar from "../Navbar/NavBar"
 import "./cartStyle.css"
 
+import {initAxiosHeader} from "../../helper/header"
+
+initAxiosHeader()
+
 
 const Cart = () => {
   const {cart, itemsInCart, totalCart, totalQuantity} = useContext(CartContext)

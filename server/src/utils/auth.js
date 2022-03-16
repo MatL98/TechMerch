@@ -2,7 +2,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const Container = require("../controllers/daos/UserDaosMongo")
 const user = new Container;
+const jwt = require("jsonwebtoken");
 const encrypt = require("./encrypt");
+require("dotenv").config();
 
 
 passport.use(
@@ -19,9 +21,12 @@ passport.use(
       const usr = result.filter((us)=> us.mail === mail)
       if (usr) {
         const user = usr[0];
-        console.log(user);
         const pass = await encrypt.comparePassword(password, user.password);
         if (pass) {
+          let token = jwt.sign({ user }, process.env.SECRET, {
+            expiresIn: "1h",
+          });
+          user.token = token;
           done(null, user);
         } else {
           done(null, false);
@@ -55,7 +60,7 @@ passport.use(
       };
       newUser.password = await encrypt.encryptPassword(password);
       const result = await user.save(newUser);
-      return done(null, newUser);
+      return done(null, result);
     }
   )
 );

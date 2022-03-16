@@ -9,8 +9,9 @@ const Container1 = require("../controllers/daos/userDaosMongo");
 const user = new Container1();
 const twilio = require("twilio");
 require("dotenv").config();
+const {verifyToken} = require("../middleware/authJwt")
 
-router.post("/", async (req, res) => {
+router.post("/",verifyToken, async (req, res) => {
   const mailUser = req.body.mail;
   const infoUser = await user.getAll();
   const buyer = infoUser.filter((usr) => {
@@ -82,16 +83,16 @@ router.post("/", async (req, res) => {
   await sendMessageToUser(buyer, cartFront);
   res.json(itemInCart);
 });
-router.get("/", async (req, res) => {
+router.get("/",verifyToken ,async (req, res) => {
   const getCart = await cart.getAll();
   res.json(getCart);
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",verifyToken ,async (req, res) => {
   let id = req.params.id;
   const getId = await cart.getById(id);
   res.json(getId);
 });
-router.put("/:id", async (req, res) => {
+router.put("/:id",verifyToken ,async (req, res) => {
   let idCart = req.params.id;
   let { name, description, code, photo, price, stock } = req.body;
   let date = moment().format("MMMM Do YYYY, h:mm:ss a");

@@ -21,11 +21,14 @@ const Login = () => {
     try {
       if (datos.username && datos.mail && datos.password) {
         const { data } = await axios.post("http://localhost:3001/auth/login", datos);
-        if (data === datos.mail) {
+        console.log(data);
+        if (data.dataUser === datos.mail) {
           window.localStorage.setItem(
             "loggedUserWithMail",
-            JSON.stringify(data)
+            JSON.stringify(data.dataUser)
           );
+          window.localStorage.setItem("token",
+          JSON.stringify(data.token))
           navigate("/home");
         }
         setShowMessage(true);
