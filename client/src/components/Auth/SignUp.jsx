@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import "./authStyle.css"
 
 const SignUp = () => {
   const [failForm, setFailForm] = useState("");
@@ -40,14 +41,14 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="containerAuth">
       <div>
         <h1>Registrate</h1>
         <p>
           Tenes una cuenta? Ingresa a <Link to={"/login"}>Inicia Sesión</Link>
         </p>
       </div>
-      <form>
+      <form className="formAuth">
         <h2>Formulario de registro</h2>
         <input
           type="text"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { axiosInstance } from "../../config";
+import "./authStyle.css"
 
 const Login = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       if (datos.username && datos.mail && datos.password) {
-        const { data } = await axiosInstance.post("auth/login", datos);
+        const { data } = await axios.post("http://localhost:3001/auth/login", datos);
         console.log(data);
         if (data.dataUser === datos.mail) {
           window.localStorage.setItem(
@@ -47,14 +47,14 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="containerAuth">
       <div>
         <h1>Inicia sesion</h1>
         <p>
           No tenes una cuenta? Ingresa a <Link to={"/signUp"}>Registrate</Link>
         </p>
       </div>
-      <form>
+      <form className="formAuth">
         <h2>Login</h2>
         <input
           type="email"
