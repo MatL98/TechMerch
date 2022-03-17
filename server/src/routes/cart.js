@@ -4,12 +4,13 @@ const router = new Router();
 const moment = require("moment");
 const Container = require("../controllers/daos/CartDaoMongo");
 const cart = new Container();
-const nodemailer = require("nodemailer");
 const Container1 = require("../controllers/daos/userDaosMongo");
 const user = new Container1();
-const twilio = require("twilio");
 require("dotenv").config();
 const {verifyToken} = require("../middleware/authJwt")
+const {sendMessageToUser} = require("../utils/mailer")
+
+
 
 router.post("/",verifyToken, async (req, res) => {
   const mailUser = req.body.mail;
@@ -29,58 +30,8 @@ router.post("/",verifyToken, async (req, res) => {
   ];
   const itemInCart = await cart.save(products);
 
-  async function sendMessageToUser(buyer, infoProducts) {
-    const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
-
-    const options = {
-      body: `Nombre y mail:${buyer[0].username} ${buyer[0].mail}
-			${infoProducts.map((prod) => {
-        return `Sus pedidos son: ${prod.name} ${prod.price}`;
-      })}`,
-      from: "whatsapp:+14155238886",
-      to: process.env.MY_PHONE_NUMBER,
-    };
-    try {
-      const message = await client.messages.create(options);
-      console.log(message);
-      res.json({ data: message });
-    } catch (error) {
-      error;
-    }
-
-    client.messages.create({
-      from: "+16065591166",
-      to: process.env.MY_PHONE_NUMBER,
-      body: "Tu pedido esta recibido y procesado, gracias!",
-    });
-
-    const mail = "c6plaeaopf3eec3n@ethereal.email";
-    const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      auth: {
-        user: mail,
-        pass: "etNwyEKCAkaB8w2zzz",
-      },
-    });
-    const mailOptions = {
-      from: "techmerch",
-      to: mail,
-      subject: `nuevo pedido de ${buyer[0].mail}-${buyer[0].username}`,
-      html: `<h1>${buyer[0].username} ${buyer[0].surname}</h1>
-				${infoProducts.map((prod) => {
-          return `<p>Sus pedidos son: ${prod.name} ${prod.price}</p>`;
-        })}`,
-    };
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        res.status(505).json("hubo un error");
-      } else {
-        res.status(200).json("todo ok");
-      }
-    });
-  }
   await sendMessageToUser(buyer, cartFront);
+
   res.json(itemInCart);
 });
 router.get("/",verifyToken ,async (req, res) => {

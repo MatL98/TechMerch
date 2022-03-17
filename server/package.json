@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "test": "mocha src/test/index.test.js",
+    "start-dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "start-build": "cd ../client && npm run build)"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assert": "2.0.0",
     "bcryptjs": "2.4.3",
+    "chai": "4.3.6",
     "connect-mongo": "4.6.0",
     "cookie-parser": "1.4.6",
     "cors": "2.8.5",
@@ -20,12 +24,14 @@
     "express-session": "1.17.2",
     "firebase-admin": "^10.0.0",
     "jsonwebtoken": "8.5.1",
+    "mocha": "^9.2.2",
     "moment": "^2.29.1",
     "mongoose": "^6.0.12",
     "nodemailer": "6.7.2",
     "nodemon": "2.0.15",
     "passport": "0.5.2",
     "passport-local": "1.0.0",
+    "supertest": "6.2.2",
     "twilio": "^3.73.0"
   }
 }

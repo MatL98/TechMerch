@@ -8,7 +8,7 @@ const {verifyToken} = require("../middleware/authJwt")
 
 router.get("/",verifyToken ,async (req, res) => {
   const getProd = await products.getAll();
-  res.json(getProd);
+  res.status(200).json(getProd);
 });
 
 
