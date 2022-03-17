@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-
+import { axiosInstance } from "../../config";
 
 const Login = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       if (datos.username && datos.mail && datos.password) {
-        const { data } = await axios.post("http://localhost:3001/auth/login", datos);
+        const { data } = await axiosInstance.post("auth/login", datos);
         console.log(data);
         if (data.dataUser === datos.mail) {
           window.localStorage.setItem(

@@ -1,0 +1,25 @@
+{
+  "name": "techmerch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engine": {
+    "node": "16.13.0",
+    "npm": "8.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatL98/TechMerch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatL98/TechMerch/issues"
+  },
+  "homepage": "https://github.com/MatL98/TechMerch#readme"
+}

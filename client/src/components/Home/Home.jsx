@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import NavBar from "../Navbar/NavBar";
 import List from "../ListProducts/List";
+import { axiosInstance } from "../../config";
 
 import {initAxiosHeader} from "../../helper/header"
 
@@ -11,7 +11,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
 
   const getApi = () => {
-    axios.get("http://localhost:3001/api/products").then(function (response) {
+    axiosInstance.get("/api/products").then(function (response) {
       setProducts(response.data);
     });
   };

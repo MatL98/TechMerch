@@ -38,13 +38,14 @@ app.use("/api/profile", routerUser);
 //DB Connection
 db.connectDb()
 
-
-app.use(express.static(path.join(__dirname, "..", "client/build")));
-//app.use(express.static("public"));
-app.use((req, res) => {
-  console.log("to front")
-  res.sendFile(path.join(__dirname, "..", "client/build", "index.html"));
-});
+if (process.env.NODE_ENV === "prod") {
+  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, "..", "client/build")));
+  app.use((req, res) => {
+    console.log("to front")
+    res.sendFile(path.join(__dirname, "..", "client/build", "index.html"));
+  });
+}
 
 
 const PORT = process.env.PORT || 3001
