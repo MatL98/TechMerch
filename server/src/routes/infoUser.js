@@ -2,7 +2,7 @@ const express = require("express");
 const { Router } = express;
 const router = new Router();
 
-const Container = require("../controllers/daos/userDaosMongo");
+const Container = require("../models/daos/userDaosMongo");
 const user = new Container();
 
 const { verifyToken } = require("../middleware/authJwt");

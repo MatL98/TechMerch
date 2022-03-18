@@ -1,21 +1,10 @@
 const mongoose = require("mongoose");
 const { asPOJO, renameField, removeField } = require("../../utils/object");
 
-const Cart = require("../../models/CartSchema");
-const Products = require("../../models/ProductSchema");
-const User = require("../../Models/UserSchema");
-
-
 
 class ContainerMongo {
-  constructor(schema) {
-    if (schema === 'productos') {
-      this.coleccion = Products
-    }else if (schema === 'cart') {
-      this.coleccion = Cart
-    }else{
-      this.coleccion = User
-    }
+  constructor(collection, schema) {
+    this.coleccion = mongoose.model(collection, schema)
   }
 
   async getById(id) {

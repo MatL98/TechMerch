@@ -8,4 +8,5 @@ const CartSchema = new Schema({
     buyer: { type: Object, required: true },
 })
 
-module.exports = model(cartCollection, CartSchema)
+exports.cartCollection =cartCollection
+exports.CartSchema = CartSchema

@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 const usersCollection = "users";
 
@@ -13,4 +13,5 @@ const UsersSchema = new Schema({
   photo: { type: String, required: true },
 });
 
-module.exports = model(usersCollection, UsersSchema);
+exports.usersCollection = usersCollection
+exports.UsersSchema = UsersSchema

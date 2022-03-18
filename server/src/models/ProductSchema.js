@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 const productsCollection = "products";
 
@@ -11,4 +11,7 @@ const ProductsSchema = new Schema({
   stock: { type: Number, required: true },
 });
 
-module.exports = model(productsCollection, ProductsSchema);
+exports.productsCollection = productsCollection
+exports.ProductsSchema = ProductsSchema
+
+

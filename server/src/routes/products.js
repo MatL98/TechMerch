@@ -1,7 +1,7 @@
 const express = require("express");
 const { Router } = express;
 const router = new Router();
-const Container = require("../controllers/daos/ProductsDaoMongo");
+const Container = require("../models/daos/ProductsDaoMongo");
 const products = new Container;
 const {verifyToken} = require("../middleware/authJwt")
 
@@ -18,7 +18,7 @@ router.get("/:id", async (req, res) => {
   res.send(`El producto con ${id} se encontro ${{ getId }}`);
 });
 
-router.post("/",verifyToken ,async (req, res) => {
+router.post("/",async (req, res) => {
   let { name, description, code, photo, price, stock } = req.body;
   const obj = {
     name,
