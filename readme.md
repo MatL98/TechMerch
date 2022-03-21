@@ -35,4 +35,6 @@ You can register a new user or use:
 - SECRET="someSecret"
 - PORT=3001
 - NODE_ENV="development or production"
+- NODEMAILER_USER="gmail"
+- NODEMAILER_PASS="gmail pass" (use an other test password gmail)
 4. Finally, you can run the project and test using (`npm start`) in both sides.
