@@ -17,8 +17,8 @@ const Cart = () => {
   console.log(cart);
 
 const sendToApi = () => {
-  let mailUser = window.localStorage.getItem("loggedUserWithMail");
-  const data = {cart, mail: mailUser}
+  let id = window.localStorage.getItem("id");
+  const data = {cart, id: id}
 	axios
 		.post(`http://localhost:3001/api/cart`, data)
 		.then(function (response) {

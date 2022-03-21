@@ -3,15 +3,16 @@ const twilio = require("twilio");
 require("dotenv").config()
 
 async function sendMessageToUser(buyer, infoProducts) {
+  console.log(buyer);
   const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
   const options = {
-    body: `Nombre y mail:${buyer[0].username} ${buyer[0].mail}
+    body: `Nombre y mail:${buyer.username} ${buyer.mail}
 			${infoProducts.map((prod) => {
         return `Sus pedidos son: ${prod.name} ${prod.price}`;
       })}`,
     from: "whatsapp:+14155238886",
-    to: process.env.MY_PHONE_NUMBER,
+    to: `whatsapp:+${process.env.MY_PHONE_NUMBER}`,
   };
   try {
     const message = await client.messages.create(options);
@@ -27,20 +28,20 @@ async function sendMessageToUser(buyer, infoProducts) {
     body: "Tu pedido esta recibido y procesado, gracias!",
   });
 
-  const mail = "c6plaeaopf3eec3n@ethereal.email";
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
+    host: "smtp.gmail.com",
     port: 587,
+    secure: true,
     auth: {
-      user: mail,
-      pass: "etNwyEKCAkaB8w2zzz",
+      user: process.env.NODEMAILER_User,
+      pass: process.env.NODEMAILER_PASS,
     },
   });
   const mailOptions = {
     from: "techmerch",
-    to: mail,
-    subject: `nuevo pedido de ${buyer[0].mail}-${buyer[0].username}`,
-    html: `<h1>${buyer[0].username} ${buyer[0].surname}</h1>
+    to: "longomaty@gmail.com",//para probar si llegan mails usar ingresar mail propio 
+    subject: `nuevo pedido de ${buyer.mail}-${buyer.username}`,
+    html: `<h1>${buyer.username} ${buyer.surname}</h1>
 				${infoProducts.map((prod) => {
           return `<p>Sus pedidos son: ${prod.name} ${prod.price}</p>`;
         })}`,

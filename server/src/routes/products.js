@@ -1,47 +1,18 @@
 const express = require("express");
+const {
+  getProducts,
+  getProductById,
+  setProducts,
+  deleteProducts,
+} = require("../controllers/productsController");
 const { Router } = express;
 const router = new Router();
-const Container = require("../models/daos/ProductsDaoMongo");
-const products = new Container;
-const {verifyToken} = require("../middleware/authJwt")
+const { verifyToken } = require("../middleware/authJwt");
 
-
-router.get("/",verifyToken ,async (req, res) => {
-  const getProd = await products.getAll();
-  res.status(200).json(getProd);
-});
-
-
-router.get("/:id", async (req, res) => {
-  let id = req.params.id;
-  const getId = await products.getById(id);
-  res.send(`El producto con ${id} se encontro ${{ getId }}`);
-});
-
-router.post("/",async (req, res) => {
-  let { name, description, code, photo, price, stock } = req.body;
-  const obj = {
-    name,
-    description,
-    code,
-    photo,
-    price,
-    stock,
-  };
-  const save = await products.save(obj);
-
-  res.status(201).send(save);
-});
-router.put("/:id",verifyToken ,async (req, res) => {
-  let id = req.params.id;
-  const newUpdate = req.body
-  const updateProduct = await products.update(id, newUpdate)
-  res.status(201).send(updateProduct);
-});
-router.delete("/:id", async (req, res) => {
-  let id = req.params.id;
-  const deleted = await products.deleteById(id);
-  res.send(deleted);
-});
+router.get("/", verifyToken, getProducts);
+router.get("/:id", verifyToken, getProductById);
+router.post("/", setProducts, setProducts);
+router.put("/:id", verifyToken, getProductById);
+router.delete("/:id", deleteProducts);
 
 module.exports = router;
