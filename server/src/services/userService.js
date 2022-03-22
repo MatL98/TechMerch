@@ -20,7 +20,16 @@ const getUserById = async (id) => {
     throw Error(error);
   }
 };
+const saveUser = async (user) => {
+  try {
+    const response = await users.save(user)
+    return response;
+  } catch (error) {
+    throw Error(error);
+  }
+}; 
 module.exports = {
   getAllUser,
   getUserById,
+  saveUser
 };

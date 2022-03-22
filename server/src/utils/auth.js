@@ -2,7 +2,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const jwt = require("jsonwebtoken");
 const encrypt = require("./encrypt");
-const { getAllUser, getUserById } = require("../services/userService");
+const { getAllUser, getUserById, saveUser } = require("../services/userService");
 require("dotenv").config();
 
 
@@ -58,7 +58,7 @@ passport.use(
         photo
       };
       newUser.password = await encrypt.encryptPassword(password);
-      const result = await user.save(newUser);
+      const result = await saveUser(newUser)
       return done(null, result);
     }
   )
