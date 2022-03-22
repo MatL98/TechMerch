@@ -1,7 +1,6 @@
-const Container = require("../models/daos/CartDaoMongo");
-const cart = new Container();
 const { getUserById } = require("../services/userService");
 const { sendMessageToUser } = require("../utils/mailer");
+const { getAllCart, saveCart, dltCart, updtCart } = require("../services/cartServices");
 
 
 const moment = require("moment");
@@ -19,24 +18,21 @@ const setCart = async (req, res) => {
       buyer,
     },
   ];
-  const itemInCart = await cart.save(products);
+  const itemInCart = await saveCart(products)
 
   sendMessageToUser(buyer, cartFront);
 
-  res.status(200);
-  res.json(itemInCart);
+  res.status(200).json(itemInCart);
 };
 
 const getCart = async (req, res) => {
-  const getCart = await cart.getAll();
-  res.status(200);
-  res.json(getCart);
+  const getCart = await getAllCart()
+  res.status(200).json(getCart);
 };
 
 const deleteCart = async (req, res) => {
-  const deleteCart = await cart.deleteAll();
-  res.status(200);
-  res.json(deleteCart);
+  const deleteCart = await dltCart()
+  res.status(200).json(deleteCart);
 };
 
 const updateCart = async (req, res) => {
@@ -55,8 +51,8 @@ const updateCart = async (req, res) => {
       stock,
     },
   };
-  const updated = await cart.update(idCart, productInCart);
-  res.json(updated);
+  const updated = await updtCart(idCart, productInCart)
+  res.status(200).json(updated);
 };
 
 module.exports = { setCart, getCart, deleteCart, updateCart };
