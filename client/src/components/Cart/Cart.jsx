@@ -18,7 +18,8 @@ const Cart = () => {
 
 const sendToApi = () => {
   let id = window.localStorage.getItem("id");
-  const data = {cart, id: id}
+  let idParse = JSON.parse(id)
+  const data = {cart, id: idParse}
 	axios
 		.post(`http://localhost:3001/api/cart`, data)
 		.then(function (response) {

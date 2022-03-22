@@ -9,11 +9,11 @@ class ContainerMongo {
 
   async getById(id) {
     try {
-      const docs = await this.coleccion.find({ _id: id });
+      const docs = await this.coleccion.findOne({ _id: id });
       if (!docs) {
         throw new Error("Error al listar por id: no encontrado");
       } else {
-        return docs[0];
+        return docs;
       }
     } catch (error) {
       throw new Error(`Error al listar por id: ${error}`);

@@ -1,12 +1,13 @@
 const Container = require("../models/daos/CartDaoMongo");
 const cart = new Container();
-const { getUser } = require("./userController");
+const { getUserById } = require("../services/userService");
 const { sendMessageToUser } = require("../utils/mailer");
+
 
 const moment = require("moment");
 
 const setCart = async (req, res) => {
-  const buyer = await getUser(req.body.id);
+  const buyer = await getUserById(req.body.id)
 
   let cartFront = req.body.cart;
   let date = moment().format("MMMM Do YYYY, h:mm:ss a");

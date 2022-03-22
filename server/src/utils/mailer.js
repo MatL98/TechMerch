@@ -48,9 +48,9 @@ async function sendMessageToUser(buyer, infoProducts) {
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      res.status(505).json("hubo un error");
+      (error)
     } else {
-      res.status(200).json("todo ok");
+      info
     }
   });
 }

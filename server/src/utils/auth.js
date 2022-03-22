@@ -1,9 +1,8 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Container = require("../models/daos/UserDaosMongo")
-const user = new Container;
 const jwt = require("jsonwebtoken");
 const encrypt = require("./encrypt");
+const { getAllUser, getUserById } = require("../services/userService");
 require("dotenv").config();
 
 
@@ -17,7 +16,7 @@ passport.use(
     },
     async (req, username, password, done) => {
       const { mail } = req.body;
-      const result = await user.getAll();
+      const result = await getAllUser();
       const usr = result.filter((us)=> us.mail === mail)
       if (usr) {
         const user = usr[0];
@@ -71,7 +70,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const usr = await user.getById(id);
+  const usr = await getUserById(id);
   console.log(usr);
   if (usr) {
     done(null, usr);
